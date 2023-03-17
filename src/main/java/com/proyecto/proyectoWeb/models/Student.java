@@ -2,6 +2,9 @@ package com.proyecto.proyectoWeb.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="students")
 public class Student {
@@ -22,6 +25,28 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "grades_id")
     public Grades grades;
+
+    @ManyToMany(mappedBy = "students")
+    private List<Modulos> modulos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", orphanRemoval = true)
+    private List<Nota> notas = new ArrayList<>();
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
+    }
+
+    public List<Modulos> getModulos() {
+        return modulos;
+    }
+
+    public void setModulos(List<Modulos> modulos) {
+        this.modulos = modulos;
+    }
 
     public Student() {
     }
