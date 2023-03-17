@@ -1,0 +1,20 @@
+.bg-text{
+    padding: 5% 0px;
+    width:50%;
+}
+
+.title-form{
+    color:black;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

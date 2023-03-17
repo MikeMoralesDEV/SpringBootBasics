@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calificar Estudiantes</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="/common.css">
+    <link rel="stylesheet"
+          href="/form.css">
+</head>
+<body>
+<div class="bg-image"></div>
+<div class="bg-text">
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 container justify-content-center card">
+            <h1 class = "title-form text-center"> Calificar estudiante <span th:text="${student.firstName}"></span> </h1>
+            <div class="card-body">
+                <form th:action="@{/students/grade/{id} (id=${student.id})}" th:object="${grades}" method="POST">
+                    <div class="form-group">
+                        <label>Nota Lenguajes de Marcas.</label>
+                        <input  type="number" name="lenguajes" th:field="*{lenguajes}"
+                                class="form-control"
+                                placeholder="Introduce la nota de Lenguajes"
+                        />
+                        <div class="alert alert-warning" th:if="${student.grades}"><i class="bi bi-exclamation"></i>Actualmente la nota es de <span th:text="${student.grades.lenguajes}"></span></div>
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label>Nota Entornos de Desarrollo.</label>
+                        <input  type="number" name="lenguajes" th:field="*{entornos}"
+                                class="form-control"
+                                placeholder="Introduce la nota de Entornos"
+                        />
+                        <div class="alert alert-warning" th:if="${student.grades}"><i class="bi bi-exclamation"></i>Actualmente la nota es de <span th:text="${student.grades.entornos}"></span></div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Calificar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

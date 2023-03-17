@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management System</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="/common.css">
+</head>
+<body>
+<div class="bg-image"></div>
+<div class="table-responsive bg-text">
+  <div class="card-header">
+    <h1>TODOS LOS ESTUDIANTES</h1>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th scope="col">Student First Name</th>
+        <th scope="col">Student Last Name</th>
+        <th scope="col">Student Email</th>
+        <th scope="col">Grades</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody class="table-dark">
+      <tr th:each="student: ${students}">
+        <td class="align-middle" th:text="${student.firstName}"></td>
+        <td class="align-middle" th:text="${student.lastName}"></td>
+        <td class="align-middle" th:text="${student.email}"></td>
+        <td th:if="${student.grades}" class="align-middle" th:text="${student.grades.lenguajes}"></td>
+        <td th:unless="${student.grades}" class="align-middle">Sin calificar</td>
+        <td class="align-middle">
+          <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger" role="button">Borrar</a>
+          <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-primary" role="button">Editar</a>
+          <a th:href="@{/students/grade/{id}(id=${student.id})}" class="btn btn-primary" role="button">Calificar</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" href="/students" role="button">Registrar estudiantes</a>
+  </div>
+</div>
+</body>
+</html>
