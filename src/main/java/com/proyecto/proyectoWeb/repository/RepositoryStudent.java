@@ -45,9 +45,6 @@ public interface RepositoryStudent extends JpaRepository<Student, Long> {
     void editStudent(@Param("id") String id, @Param("FirstName") String first_name, @Param("LastName") String last_name,
                      @Param("email") String email);
 
-    @Modifying
-    @Transactional
-    @Query(value="INSERT INTO grades (lenguajes, entornos, student_id) values (:lenguajes, :entornos, :id);", nativeQuery = true)
-    void gradeStudent(@Param("id") String id, @Param("lenguajes") int lenguajes, @Param("entornos") int entornos);
+
 }
 

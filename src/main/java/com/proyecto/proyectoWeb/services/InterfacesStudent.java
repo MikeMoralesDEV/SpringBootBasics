@@ -11,7 +11,7 @@ public interface InterfacesStudent {
     void addStudent(String first_name, String last_name, String email);
     void deleteStudent(String id);
     void editStudent(String id, String first_name, String last_name, String email);
-    void gradeStudent(String id, int lenguajes, int entornos);
+
     void refreshGrades();
 
 }

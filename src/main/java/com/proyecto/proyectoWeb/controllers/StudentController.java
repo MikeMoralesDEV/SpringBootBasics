@@ -2,6 +2,7 @@ package com.proyecto.proyectoWeb.controllers;
 
 import com.proyecto.proyectoWeb.models.Grades;
 import com.proyecto.proyectoWeb.models.Student;
+import com.proyecto.proyectoWeb.services.ServicesGrades;
 import com.proyecto.proyectoWeb.services.ServicesStudent;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,15 @@ public class StudentController {
     @Autowired
     private ServicesStudent studentService;
 
+    @Autowired
+    private final ServicesGrades gradesServices;
+
     private List<Student> studentsList = new ArrayList<>();
 
-    public StudentController(ServicesStudent studentService){
+    public StudentController(ServicesStudent studentService, ServicesGrades gradesServices){
 
         this.studentService=studentService;
+        this.gradesServices = gradesServices;
     }
 
     @GetMapping("/")
@@ -86,7 +91,7 @@ public class StudentController {
 
     @PostMapping("/students/grade/{id}")
     public RedirectView gradeStudent(@ModelAttribute("grades") Grades grades, @PathVariable String id, Model model) {
-        studentService.gradeStudent(id, grades.lenguajes, grades.entornos);
+        gradesServices.gradeStudent(id, grades.lenguajes, grades.entornos);
         studentService.refreshGrades();
         return new RedirectView("/");
     }
