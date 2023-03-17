@@ -4,4 +4,6 @@ public interface InterfacesGrades {
 
     void gradeStudent(String id, int lenguajes, int entornos);
 
+    void refreshGrades();
+
 }

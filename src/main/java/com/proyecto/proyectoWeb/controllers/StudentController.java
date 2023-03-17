@@ -31,7 +31,21 @@ public class StudentController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("students", studentService.getAllStudents());
+
+        List<Student> estudiantes = studentService.getAllStudents();
+        List<Float> medias = new ArrayList<Float>();
+        estudiantes.forEach((estudiante) -> {
+                    if (estudiante.getGrades() != null) {
+                        medias.add(
+                                (
+                                        ((float) estudiante.getGrades().getLenguajes() + (float) estudiante.getGrades().getEntornos()) / 2.0F));
+                    }else{
+                        medias.add(0.0F);
+                    }
+                }
+        );
+        model.addAttribute("students", estudiantes);
+        model.addAttribute("medias", medias);
         return "students";
     }
 
@@ -92,7 +106,7 @@ public class StudentController {
     @PostMapping("/students/grade/{id}")
     public RedirectView gradeStudent(@ModelAttribute("grades") Grades grades, @PathVariable String id, Model model) {
         gradesServices.gradeStudent(id, grades.lenguajes, grades.entornos);
-        studentService.refreshGrades();
+        gradesServices.refreshGrades();
         return new RedirectView("/");
     }
 

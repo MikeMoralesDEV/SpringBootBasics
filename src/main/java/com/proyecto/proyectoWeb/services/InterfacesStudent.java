@@ -12,6 +12,5 @@ public interface InterfacesStudent {
     void deleteStudent(String id);
     void editStudent(String id, String first_name, String last_name, String email);
 
-    void refreshGrades();
 
 }

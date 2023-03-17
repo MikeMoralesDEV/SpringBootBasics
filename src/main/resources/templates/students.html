@@ -28,11 +28,11 @@
       </tr>
       </thead>
       <tbody class="table-dark">
-      <tr th:each="student: ${students}">
+      <tr th:each="student,iter: ${students}">
         <td class="align-middle" th:text="${student.firstName}"></td>
         <td class="align-middle" th:text="${student.lastName}"></td>
         <td class="align-middle" th:text="${student.email}"></td>
-        <td th:if="${student.grades}" class="align-middle" th:text="${student.grades.lenguajes}"></td>
+        <td th:if="${student.grades}" class="align-middle" th:text="${medias[iter.index]}"></td>
         <td th:unless="${student.grades}" class="align-middle">Sin calificar</td>
         <td class="align-middle">
           <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger" role="button">Borrar</a>

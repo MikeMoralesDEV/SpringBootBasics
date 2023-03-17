@@ -31,7 +31,6 @@ public class ServicesStudent implements InterfacesStudent {
     @Override
     public void editStudent(String id, String first_name, String last_name, String email){ studentRepository.editStudent(id, first_name, last_name, email); }
 
-    @Override
-    public void refreshGrades(){ studentRepository.refreshGrades();}
+
 
 }

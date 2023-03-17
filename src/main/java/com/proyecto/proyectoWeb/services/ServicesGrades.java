@@ -15,4 +15,7 @@ public class ServicesGrades implements InterfacesGrades{
     @Override
     public void gradeStudent(String id, int lenguajes, int entornos){ gradesRepository.gradeStudent(id, lenguajes, entornos); }
 
+    @Override
+    public void refreshGrades(){ gradesRepository.refreshGrades();}
+
 }

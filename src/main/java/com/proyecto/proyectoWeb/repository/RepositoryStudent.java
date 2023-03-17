@@ -17,11 +17,6 @@ public interface RepositoryStudent extends JpaRepository<Student, Long> {
     @Query(value = "SELECT * FROM students", nativeQuery = true)
     public List<Student> findAll();
 
-    @Modifying
-    @Transactional
-    @Query(value="UPDATE students, grades SET students.grades_id = grades.ID WHERE students.id = grades.student_id; \n", nativeQuery = true)
-    public void refreshGrades();
-
     @Query(value = "SELECT * FROM students WHERE ID = ?1", nativeQuery = true)
     public Student findById(String id);
 

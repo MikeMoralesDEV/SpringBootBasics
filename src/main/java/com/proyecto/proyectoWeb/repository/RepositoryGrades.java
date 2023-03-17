@@ -15,5 +15,10 @@ public interface RepositoryGrades  extends JpaRepository<Grades, Long> {
     @Query(value="INSERT INTO grades (lenguajes, entornos, student_id) values (:lenguajes, :entornos, :id);", nativeQuery = true)
     void gradeStudent(@Param("id") String id, @Param("lenguajes") int lenguajes, @Param("entornos") int entornos);
 
+    @Modifying
+    @Transactional
+    @Query(value="UPDATE students, grades SET students.grades_id = grades.ID WHERE students.id = grades.student_id; \n", nativeQuery = true)
+    public void refreshGrades();
+
 
 }
