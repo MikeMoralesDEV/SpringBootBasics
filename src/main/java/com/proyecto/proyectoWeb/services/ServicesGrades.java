@@ -1,5 +1,6 @@
 package com.proyecto.proyectoWeb.services;
 
+import com.proyecto.proyectoWeb.models.Grades;
 import com.proyecto.proyectoWeb.repository.RepositoryGrades;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ public class ServicesGrades implements InterfacesGrades{
     }
 
     @Override
-    public void gradeStudent(String id, int lenguajes, int entornos){ gradesRepository.gradeStudent(id, lenguajes, entornos); }
+    public void gradeStudent(Grades grade){ gradesRepository.save(grade); }
 
     @Override
     public void refreshGrades(){ gradesRepository.refreshGrades();}
+
+
 
 }

@@ -1,12 +1,14 @@
 package com.proyecto.proyectoWeb.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name="modulos")
 public class Modulos {
@@ -31,52 +33,12 @@ public class Modulos {
             inverseJoinColumns = @JoinColumn(name = "horas_id"))
     private List<Hora> horas = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "modulos",  orphanRemoval = true)
+    private List<Nota> notas = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
 
-    @OneToMany(mappedBy = "modulos", orphanRemoval = true)
-    private List<Nota> notas = new ArrayList<>();
-
-    public List<Nota> getNotas() {
-        return notas;
-    }
-
-    public void setNotas(List<Nota> notas) {
-        this.notas = notas;
-    }
-
-
-    public Profesor getProfesor() {
-        return profesor;
-    }
-
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
-    }
-
-    public List<Hora> getHoras() {
-        return horas;
-    }
-
-    public void setHoras(List<Hora> horas) {
-        this.horas = horas;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

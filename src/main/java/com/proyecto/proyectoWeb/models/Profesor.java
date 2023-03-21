@@ -1,12 +1,14 @@
 package com.proyecto.proyectoWeb.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name="profesores")
 public class Profesor {
@@ -23,30 +25,7 @@ public class Profesor {
     @JdbcTypeCode(SqlTypes.CHAR)
     private String email;
 
-    @OneToMany(mappedBy = "profesor", orphanRemoval = true)
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Modulos> modulos = new ArrayList<>();
 
-    public List<Modulos> getModulos() {
-        return modulos;
-    }
-
-    public void setModulos(List<Modulos> modulos) {
-        this.modulos = modulos;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

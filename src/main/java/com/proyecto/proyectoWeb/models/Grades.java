@@ -1,7 +1,9 @@
 package com.proyecto.proyectoWeb.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name="grades")
 public class Grades {
@@ -16,46 +18,9 @@ public class Grades {
     @Column(name="entornos")
     public int entornos;
 
-    @OneToOne(mappedBy = "grades")
-    public Student student;
 
-    public Grades(){
-    }
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-    public Grades(int lenguajes, int entornos, Student student) {
-        this.lenguajes = lenguajes;
-        this.entornos = entornos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getLenguajes() {
-        return lenguajes;
-    }
-
-    public void setLenguajes(int lenguajes) {
-        this.lenguajes = lenguajes;
-    }
-
-    public int getEntornos() {
-        return entornos;
-    }
-
-    public void setEntornos(int entornos) {
-        this.entornos = entornos;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 }
