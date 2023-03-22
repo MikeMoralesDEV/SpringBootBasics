@@ -99,7 +99,7 @@ public class StudentController {
                 new RuntimeException("El usuario no existe")
         );
         model.addAttribute("student", estudiante);
-        return ("editar");
+        return ("modificarAlumno");
     }
 
     @PostMapping("/students/edit/{id}")
