@@ -3,13 +3,14 @@ package com.proyecto.proyectoWeb.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name="students")
-public class Student {
+public class Student  implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,8 +34,10 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "modulos_id"))
     private List<Modulos> modulos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "student", orphanRemoval = true)
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private List<Nota> notas = new ArrayList<>();
+
+
 
 
 }

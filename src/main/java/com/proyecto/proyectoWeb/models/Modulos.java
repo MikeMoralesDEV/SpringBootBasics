@@ -5,13 +5,14 @@ import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name="modulos")
-public class Modulos {
+public class Modulos  implements Serializable {
 
 
     @Id
@@ -27,12 +28,13 @@ public class Modulos {
             inverseJoinColumns = @JoinColumn(name = "horas_id"))
     private List<Hora> horas = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "modulos",  orphanRemoval = true)
+    @OneToMany(mappedBy = "modulos", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Nota> notas = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
+
+
 
 }

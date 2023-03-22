@@ -1,13 +1,8 @@
 package com.proyecto.proyectoWeb.controllers;
 
-import com.proyecto.proyectoWeb.models.Grades;
-import com.proyecto.proyectoWeb.models.Modulos;
-import com.proyecto.proyectoWeb.models.Profesor;
-import com.proyecto.proyectoWeb.models.Student;
-import com.proyecto.proyectoWeb.services.ServicesGrades;
-import com.proyecto.proyectoWeb.services.ServicesModulos;
-import com.proyecto.proyectoWeb.services.ServicesProfesor;
-import com.proyecto.proyectoWeb.services.ServicesStudent;
+import com.proyecto.proyectoWeb.models.*;
+import com.proyecto.proyectoWeb.services.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,15 +28,18 @@ public class StudentController {
     @Autowired
     private final ServicesProfesor profesorServices;
 
+    @Autowired
+    private final ServicesNotas notasServices;
 
     private List<Student> studentsList = new ArrayList<>();
 
-    public StudentController(ServicesStudent studentService, ServicesGrades gradesServices, ServicesModulos modulosServices, ServicesProfesor profesorServices){
+    public StudentController(ServicesStudent studentService, ServicesGrades gradesServices, ServicesModulos modulosServices, ServicesProfesor profesorServices, ServicesNotas notasServices){
 
         this.studentService = studentService;
         this.gradesServices = gradesServices;
         this.modulosServices = modulosServices;
         this.profesorServices = profesorServices;
+        this.notasServices = notasServices;
     }
 
     // Esto en un futuro será /students como tal. Pues el inicio estaría bien que fuera otro.
@@ -82,6 +80,7 @@ public class StudentController {
             return "/error";
         }
         List<Modulos> modulos = student.getModulos();
+
         studentService.save(student);
         return new RedirectView("/");
     }
@@ -211,6 +210,39 @@ public class StudentController {
         return "modulos";
     }
 
+
+    // Testing notas
+    @GetMapping("/evaluar/{id}")
+    public String evaluar(Model model, @PathVariable int id){
+        Optional<Student> aux = studentService.findById(id);
+        Student estudiante = aux.orElseThrow(() ->
+                new RuntimeException("El usuario no existe")
+        );
+        model.addAttribute("estudiante", estudiante);
+        List<Nota> listaNotas = new ArrayList<Nota>(estudiante.getModulos().size());
+        estudiante.setNotas(listaNotas); //estaria bien hacerlo cuando edite tambien los modulos en los que está
+        studentService.save(estudiante); //A ver si se crean las notas vacias
+        auxiliaryList auxiliaryList = new auxiliaryList(listaNotas);
+        model.addAttribute("notas", auxiliaryList);
+        return "evaluarAlumno";
+    }
+
+    @PostMapping("/evaluar/{id}")
+    public RedirectView guardarEvaluacion(@ModelAttribute("notas") auxiliaryList auxiliaryList, @PathVariable int id){
+        Optional<Student> aux = studentService.findById(id);
+        Student estudiante = aux.orElseThrow(() ->
+                new RuntimeException("El usuario no existe")
+        );
+        List<Nota> notasForm = auxiliaryList.getListNota();
+        for(int i=0; i < estudiante.getModulos().size(); i++){
+
+            notasForm.get(i).setStudent(estudiante);
+            notasForm.get(i).setModulos(estudiante.getModulos().get(i));
+            notasServices.save(notasForm.get(i));
+
+        }
+        return new RedirectView("/");
+    }
 
 
 }

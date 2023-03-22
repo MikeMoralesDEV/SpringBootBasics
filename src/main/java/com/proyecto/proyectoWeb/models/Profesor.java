@@ -5,13 +5,14 @@ import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name="profesores")
-public class Profesor {
+public class Profesor  implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

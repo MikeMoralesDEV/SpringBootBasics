@@ -56,6 +56,7 @@
                     <th scope="col">E-mail</th>
                     <th scope="col">Nota media</th>
                     <th scope="col">Modulos</th>
+                    <th scope="col">Nota prueba</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>
@@ -72,6 +73,9 @@
                                 <li th:text="${modulo.nombre}"></li>
                             </th:block>
                         </ul>
+                    </td>
+                    <td th:text="${student.notas[0].nota}">
+
                     </td>
                     <td class="align-middle">
                         <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger" role="button">Borrar</a>
