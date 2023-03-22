@@ -22,12 +22,6 @@ public class Modulos {
     private String nombre;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "modulos_students",
-            joinColumns = @JoinColumn(name = "modulos_id"),
-            inverseJoinColumns = @JoinColumn(name = "students_id"))
-    private List<Student> students = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "modulos_horas",
             joinColumns = @JoinColumn(name = "modulos_id"),
             inverseJoinColumns = @JoinColumn(name = "horas_id"))

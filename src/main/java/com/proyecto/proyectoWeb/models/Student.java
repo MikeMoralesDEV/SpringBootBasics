@@ -27,7 +27,10 @@ public class Student {
     @OneToOne(mappedBy = "student", orphanRemoval = true)
     private Grades grades;
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "students_modulos",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "modulos_id"))
     private List<Modulos> modulos = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
