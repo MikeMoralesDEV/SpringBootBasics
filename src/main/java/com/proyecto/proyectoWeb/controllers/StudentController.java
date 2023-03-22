@@ -68,6 +68,7 @@ public class StudentController {
     @GetMapping("/students/registro")
     public String formStudent(Model model){
         model.addAttribute("student", new Student());
+        model.addAttribute("modulos", modulosServices.findAll());
         return "registroAlumno";
     }
     @PostMapping("/students/registro")
@@ -80,7 +81,8 @@ public class StudentController {
             model.addAttribute("mensaje", mensaje);
             return "/error";
         }
-        studentService.addStudent(student.firstName, student.lastName, student.email);
+        List<Modulos> modulos = student.getModulos();
+        studentService.save(student);
         return new RedirectView("/");
     }
 
@@ -113,7 +115,6 @@ public class StudentController {
             return "/error";
         }
         student.setId(id);
-        //studentService.editStudent(id, student.firstName, student.lastName, student.email);
         studentService.save(student);
         return new RedirectView("/");
     }

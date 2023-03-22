@@ -66,7 +66,14 @@
                                    class="form-control"
                                    placeholder="Introduce el correo electrónico"/>
                         </div>
-
+                        <div class="form-group">
+                            <label>Módulos</label>
+                            <select class="form-select" multiple aria-label="multiple select example"  th:field="*{modulos}" >
+                                <th:block th:each="modulo: ${modulos}">
+                                    <option th:value="${modulo.id}" th:text="${modulo.nombre}"></option>
+                                </th:block>
+                            </select>
+                        </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
