@@ -112,7 +112,9 @@ public class StudentController {
             model.addAttribute("mensaje", mensaje);
             return "/error";
         }
-        studentService.editStudent(id, student.firstName, student.lastName, student.email);
+        student.setId(id);
+        //studentService.editStudent(id, student.firstName, student.lastName, student.email);
+        studentService.save(student);
         return new RedirectView("/");
     }
 

@@ -33,6 +33,6 @@ public class ServicesStudent implements InterfacesStudent {
     @Override
     public void editStudent(int id, String first_name, String last_name, String email){ studentRepository.editStudent(id, first_name, last_name, email); }
 
-
+    public void save(Student estudiante){ studentRepository.save(estudiante);}
 
 }

@@ -27,7 +27,7 @@ public class Student {
     @OneToOne(mappedBy = "student", orphanRemoval = true)
     private Grades grades;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Modulos> modulos = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", orphanRemoval = true)
